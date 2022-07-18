@@ -1,0 +1,92 @@
+ <header class="header">
+        <!-- Tag Header mit dem Klass Header, kein <div> das ist wahrscheinlich besser-->
+        <a href="/" class="logo">
+            <img src="/public/images/logo.png" alt="">
+        </a>
+
+        <nav class="navbar">
+            <!-- für die Navigation wird kein div verwendet, sondern ein <nav> Tag mit Links-->
+            {{#if isHome}}    
+                <a class="nav-item-active" href="#home">home</a> <!-- man braucht hier keine Liste mit <li> Tags -->
+            {{else}}
+                <a class="nav-item" href="/">home</a>
+            {{/if}}
+            <a class="nav-item" href="#about">about</a>
+            <a class="nav-item" href="#menu">menu</a>
+            <a class="nav-item" href="#products">products</a>
+            <a class="nav-item" href="#review">review</a>
+            <a class="nav-item" href="#contact">contact</a>
+            <a class="nav-item" href="/showCard">your card</a>
+
+            {{#if isAuth}}    
+
+                {{#if isOrder}} 
+                    <a class="nav-item-active" href="/orders">your orders</a>
+                {{else}}
+                    <a class="nav-item" href="/orders">your orders</a>
+                {{/if}}
+
+                {{#if isAccount}} 
+                    <a class="nav-item-active" href="/seeAccount">your Account</a>
+                {{else}}
+                    <a class="nav-item" href="/seeAccount">your Account</a>
+                {{/if}}
+
+                    <a class="nav-item" href="/logout">Log Out</a>
+
+            {{else}}
+                {{#if isLogin}} 
+                <a class="login_active login" href="/login">login</a>
+                {{else}}
+                <a class="login" href="/login">login</a>
+                {{/if}}
+
+                {{#if isSignUp}} 
+                <a class="login_active signUp" href="/signUp">sign up</a>
+                {{else}}
+                <a class="login signUp" href="/signUp">sign up</a>
+                {{/if}}
+            {{/if}}
+            
+        </nav>
+
+        <div class="icons">
+            
+            <div class="fas fa-search" id="search-btn"></div>
+            <!-- Es wurden keine Links, aber auch keine Buttons benutzt, nur <div> -->
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <div class="search-form">                                                               <!--даже нет тега form-->
+            <input type="search" id="search-box" placeholder="search here...">                  <!--интерестный тип "search" у импута-->
+            <label for="search-box" class="fas fa-search"></label>                              <!--кнопка поиска через тег label-->
+        </div>
+
+        <div class="cart-container-toggle">
+            {{#if  itemsObj.length}}
+                <div class="cart-items-container-toggle">
+            {{#each itemsObj}}
+                <div class="cart-item-toggle">
+                    <a class="fas fa-times" href="/myCard/delete/{{this.id}}"></a>
+                    <img src="{{this.image}}" alt="">
+                    <div class="content-toggle">
+                        <h3>{{this.type}}</h3>
+                        <div class="price">${{this.price}}</div>
+                    </div>
+                    <div class="cart_item_amount_toggle">{{this.amount}}</div>
+                </div>
+            {{/each}}
+                <div class="totalLine"></div>
+                <div class="totalPrice_toggle">Total Price: {{totalPrice}} $</div>
+                <a href="#" class="btn btn-checkout-toggle">checkout now</a>
+                </div>
+            {{else}}
+                <h1 class="title-messagee-toggle">Your card is still empty. Don't loose your chance today and order now our tasty and powerful coffee which wiil wake you up, even if you are dead</h1>
+            {{/if}}
+
+        </div>
+
+    </header>
+
+    
